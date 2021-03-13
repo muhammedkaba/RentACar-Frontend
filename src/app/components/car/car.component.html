@@ -3,7 +3,7 @@
   </div>
   <table *ngIf="dataLoaded!=false" class="table">
     <thead>
-      <tr>
+      <tr class="table-success">
         <th>Id</th>
         <th>Marka Adı</th>
         <th>Renk</th>
@@ -12,7 +12,7 @@
         <th>Açıklama</th>
       </tr>
     </thead>
-    <tr *ngFor="let car of cars">
+    <tr class="table" *ngFor="let car of cars">
       <td>{{ car.carId }}</td>
       <td>{{ car.brandName }}</td>
       <td>{{ car.colorName }}</td>

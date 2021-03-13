@@ -3,7 +3,7 @@
   </div>
   <table *ngIf="dataLoaded!=false" class="table">
     <thead>
-      <tr>
+      <tr class="table-success">
         <th>Kiralama No</th>
         <th>Araba İsmi</th>
         <th>Müşteri İsmi</th>
@@ -11,7 +11,7 @@
         <th>Teslim Tarihi</th>
       </tr>
     </thead>
-    <tr *ngFor="let rental of rentals">
+    <tr class="table" *ngFor="let rental of rentals" >
       <td>{{ rental.rentalId }}</td>
       <td>{{ rental.brandName }}</td>
       <td>{{ rental.firstName }} {{ rental.lastName }}</td>

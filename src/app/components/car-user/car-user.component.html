@@ -3,14 +3,14 @@
   </div>
   <table *ngIf="dataLoaded!=false" class="table">
     <thead>
-      <tr>
+      <tr class="table-success">
         <th>Müşteri No</th>
         <th>İsim</th>
         <th>Soyisim</th>
         <th>Email</th>
       </tr>
     </thead>
-    <tr *ngFor="let carUser of carUsers">
+    <tr class="table" *ngFor="let carUser of carUsers">
       <td>{{ carUser.id }}</td>
       <td>{{ carUser.firstName }}</td>
       <td>{{ carUser.lastName }}</td>

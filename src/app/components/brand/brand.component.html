@@ -3,12 +3,12 @@
   </div>
   <table *ngIf="dataLoaded!=false" class="table">
     <thead>
-      <tr>
+      <tr class="table-success">
         <th>Marka Id</th>
         <th>Marka Adı</th>
       </tr>
     </thead>
-    <tr *ngFor="let brand of brands">
+    <tr class="table" *ngFor="let brand of brands">
       <td>{{ brand.brandId }}</td>
       <td>{{ brand.brandName }}</td>
     </tr>
