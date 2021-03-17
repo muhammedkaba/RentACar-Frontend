@@ -12,7 +12,7 @@
         <th>Açıklama</th>
       </tr>
     </thead>
-    <tr class="table" *ngFor="let car of cars">
+    <tr routerLink = "/cars/details/{{ car.carId }}" *ngFor="let car of cars" >
       <td>{{ car.carId }}</td>
       <td>{{ car.brandName }}</td>
       <td>{{ car.colorName }}</td>
@@ -20,5 +20,8 @@
       <td>{{ car.dailyPrice }}</td>
       <td>{{ car.carName }}</td>
     </tr>
+    <div *ngFor="let carImage of carImages">
+      <img src = "https://localhost:44321/{{ carImage.imagePath }}">
+    </div>
   </table>
   
