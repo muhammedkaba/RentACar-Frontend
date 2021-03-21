@@ -1,7 +1,7 @@
 <div *ngIf="dataLoaded==false" class="spinner-border text-secondary" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
-  <table *ngIf="dataLoaded!=false" class="table">
+  <table *ngIf="dataLoaded!=false" class ="table table-bordered">
     <thead>
       <tr class="table-success">
         <th>Müşteri No</th>
@@ -10,11 +10,13 @@
         <th>Email</th>
       </tr>
     </thead>
-    <tr class="table" *ngFor="let carUser of carUsers">
-      <td>{{ carUser.id }}</td>
-      <td>{{ carUser.firstName }}</td>
-      <td>{{ carUser.lastName }}</td>
-      <td>{{ carUser.email }}</td>
-    </tr>
+    <tbody>
+      <tr class="table" *ngFor="let carUser of carUsers">
+        <td>{{ carUser.id }}</td>
+        <td>{{ carUser.firstName }}</td>
+        <td>{{ carUser.lastName }}</td>
+        <td>{{ carUser.email }}</td>
+      </tr>
+    </tbody>
   </table>
   

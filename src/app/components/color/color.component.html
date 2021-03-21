@@ -1,3 +1,12 @@
+<div class="mb-3">
+  <label for="colorFilterText" class="form-label" style="margin-left: 30%; font-weight: bold;">RENK ARA</label>
+  <input
+    type="text" [(ngModel)]="colorFilterText"
+    class="form-control" id="colorFilterText"
+    placeholder="Arama ifadesi giriniz"
+  />
+</div>
+
 <ul class="list-group">
   <li routerLink = "/cars" 
   [class]="getAllColorClass()" 
@@ -5,7 +14,7 @@
   Tüm Renkler</li>
   <li (click)="setCurrentColor(color)" 
   routerLink = "/cars/color/{{ color.colorId }}"
-  *ngFor="let color of colors" 
+  *ngFor="let color of colors |colorFilterPipe:colorFilterText" 
   [class]="getCurrentColorClass(color)">
     {{ color.colorName }}</li>
 </ul>

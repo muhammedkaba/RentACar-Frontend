@@ -12,6 +12,7 @@ export class ColorComponent implements OnInit {
   dataLoaded = false;
   currentColor: Color;
   emptyColor: Color;
+  colorFilterText="";
   constructor(private ColorService: ColorService) {}
 
   ngOnInit(): void {

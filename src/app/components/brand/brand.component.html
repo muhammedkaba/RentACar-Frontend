@@ -1,3 +1,12 @@
+<div class="mb-3">
+  <label for="brandFilterText" class="form-label" style="margin-left: 30%; font-weight: bold;">MARKA ARA</label>
+  <input
+    type="text" [(ngModel)]="brandFilterText"
+    class="form-control" id="brandFilterText"
+    placeholder="Arama ifadesi giriniz"
+  />
+</div>
+
 <ul class="list-group">
   <li routerLink = "/cars" 
   [class]="getAllBrandClass()" 
@@ -5,7 +14,7 @@
   Tüm Markalar</li>
   <li (click)="setCurrentBrand(brand)" 
   routerLink = "/cars/brand/{{ brand.brandId }}"
-  *ngFor="let brand of brands" 
+  *ngFor="let brand of brands |brandFilterPipe:brandFilterText" 
   [class]="getCurrentBrandClass(brand)">
     {{ brand.brandName }}</li>
 </ul>

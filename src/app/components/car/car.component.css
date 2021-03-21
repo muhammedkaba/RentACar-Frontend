@@ -1,6 +1,16 @@
-.table td {
-    text-align: center;  
- }
-.table th {
+.carousel {
     text-align: center;
+}
+.form-select{
+    float: left;
+    max-width: 25%;
+  }
+.table th{
+    border-color: darkblue;
+}
+.table td{
+    border-color: rgb(104, 104, 202);
+}
+.table tr{
+    border-color: rgb(104, 104, 202);
 }

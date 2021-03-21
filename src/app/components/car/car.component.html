@@ -1,27 +1,160 @@
-<div *ngIf="dataLoaded==false" class="spinner-border text-secondary" role="status">
-    <span class="visually-hidden">Loading...</span>
+<div class="mb-3">
+  <label for="filterText" class="form-label" style="margin-left: 45%; font-weight: bold;">ARABA ARA</label>
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    class="form-control"
+    id="filterText"
+    placeholder="Arama ifadesi giriniz"
+  />
+</div>
+
+<div *ngIf="filterText.length > 1" class="alert alert-primary">
+  {{ filterText }} aradınız
+</div>
+
+<div>
+  <select
+    class="form-select"
+    [(ngModel)]="filterBrandId"
+    aria-label="Default select example"
+  >
+    <option *ngFor="let brand of brands" value="{{brand.brandId}}">{{ brand.brandName }}</option>
+  </select>
+</div>
+<div>
+  <select
+    style="margin-left: 10px"
+    class="form-select"
+    [(ngModel)]="filterColorId"
+    aria-label="Default select example"
+  >
+    <option *ngFor="let color of colors" value="{{color.colorId}}">{{ color.colorName }}</option>
+  </select>
+</div>
+<div>
+  <button (click)="getCarsByFilter(filterBrandId,filterColorId)" style="float: left;margin-left: 25px;margin-bottom: 15px;" type="button" class="btn btn-primary">Filtrele</button>
+</div>
+<div *ngIf="mainCar">
+  <button (click)="getCarUsers()" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-warning" style="float: right;margin-bottom: 15px;">Kirala</button>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Kiralama Bilgileri</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table style="width: 100%;">
+          <td style="width: 60%;">
+            <tr>
+              <span class="input-group-text">Günlük Fiyat</span>
+            </tr>
+            <tr>
+              <span style="margin-top: 16px;" class="input-group-text">Müşteri Seçiniz</span>
+            </tr>
+            <tr>
+              <span class="input-group-text" style="margin-top: 16px;">Kiralama Tarihi</span>
+            </tr>
+            <tr>
+              <span class="input-group-text" style="margin-top: 16px;">Teslim Tarihi</span>
+            </tr>
+          </td>
+          <td style="width: 40%;">
+            <tr>
+              <div class="input-group mb-3">
+                <input *ngIf="mainCar" type="text" class="form-control" placeholder="{{mainCar.dailyPrice |currency:'₺ '}}" aria-label="Username" style="text-align: right;" aria-describedby="basic-addon1" disabled>
+              </div>
+            </tr>
+            <tr>
+              <select style="max-width: 200px;" class="form-select" aria-label="Default select example">
+                <option [(ngModel)]="rental.userId" value="carUser.id" *ngFor="let carUser of carUsers">{{ carUser.firstName }} {{ carUser.lastName }}</option>
+              </select>
+            </tr>
+            <tr>
+              <input [(ngModel)]="rental.rentDate" type="datetime-local" style="text-align: center;margin-top: 17px;height: 36px;border-radius: 4px;border-width: 1px;border-color: lightgray;">
+            </tr>
+            <tr>
+              <input [(ngModel)]="rental.returnDate" type="datetime-local" style="text-align: center;margin-top: 18px;height: 36px;border-radius: 4px;border-width: 1px;border-color: lightgray;">
+            </tr>
+          </td>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+        <button type="button" class="btn btn-primary">Kirala</button>
+      </div>
+    </div>
   </div>
-  <table *ngIf="dataLoaded!=false" class="table">
-    <thead>
-      <tr class="table-success">
-        <th>Id</th>
-        <th>Marka Adı</th>
-        <th>Renk</th>
-        <th>Model Yılı</th>
-        <th>Günlük Fiyat</th>
-        <th>Açıklama</th>
-      </tr>
-    </thead>
-    <tr routerLink = "/cars/details/{{ car.carId }}" *ngFor="let car of cars" >
+</div>
+
+<div
+  *ngIf="dataLoaded == false"
+  class="spinner-border text-secondary"
+  role="status"
+>
+  <span class="visually-hidden">Loading...</span>
+</div>
+<table *ngIf="dataLoaded != false" class="table table-bordered">
+  <thead>
+    <tr class="table-success">
+      <th>Id</th>
+      <th>Marka Adı</th>
+      <th>Renk</th>
+      <th>Model Yılı</th>
+      <th>Günlük Fiyat</th>
+      <th>Açıklama</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      routerLink="/cars/details/{{ car.carId }}"
+      *ngFor="let car of cars | filterPipe: filterText"
+    >
       <td>{{ car.carId }}</td>
       <td>{{ car.brandName }}</td>
       <td>{{ car.colorName }}</td>
       <td>{{ car.modelYear }}</td>
-      <td>{{ car.dailyPrice }}</td>
+      <td>{{ car.dailyPrice |currency:'₺ '}}</td>
       <td>{{ car.carName }}</td>
     </tr>
-    <div *ngFor="let carImage of carImages">
-      <img src = "https://localhost:44321/{{ carImage.imagePath }}">
+  </tbody>
+</table>
+<div *ngIf="mainCar"
+  id="carouselExampleControls"
+  class="carousel slide"
+  data-bs-ride="carousel"
+>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="..." width="" height="" alt="..." />
     </div>
-  </table>
-  
+    <div class="carousel-item" *ngFor="let carImage of carImages">
+      <img
+        width="100%"
+        height="40%"
+        src="https://localhost:44321/{{ carImage.imagePath }}"
+      />
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleControls"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleControls"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
