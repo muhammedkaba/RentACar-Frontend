@@ -35,8 +35,9 @@
 <div>
   <button (click)="getCarsByFilter(filterBrandId,filterColorId)" style="float: left;margin-left: 25px;margin-bottom: 15px;" type="button" class="btn btn-primary">Filtrele</button>
 </div>
+
 <div *ngIf="mainCar">
-  <button (click)="getCarUsers()" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-warning" style="float: right;margin-bottom: 15px;">Kirala</button>
+  <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-warning" style="float: right;margin-bottom: 15px;">Kirala</button>
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -69,8 +70,8 @@
               </div>
             </tr>
             <tr>
-              <select style="max-width: 200px;" class="form-select" aria-label="Default select example">
-                <option [(ngModel)]="rental.userId" value="carUser.id" *ngFor="let carUser of carUsers">{{ carUser.firstName }} {{ carUser.lastName }}</option>
+              <select style="max-width: 200px;" class="form-select" aria-label="Default select example" [(ngModel)]="rental.userId">
+                <option *ngFor="let carUser of carUsers" value="{{carUser.id}}">{{ carUser.firstName }} {{ carUser.lastName }}</option>
               </select>
             </tr>
             <tr>
@@ -84,7 +85,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-        <button type="button" class="btn btn-primary">Kirala</button>
+        <button (click)="addRental(rental)" class="btn btn-primary">Kirala</button>
       </div>
     </div>
   </div>

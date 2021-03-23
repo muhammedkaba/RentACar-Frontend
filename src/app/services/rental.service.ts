@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Rental } from '../models/rental';
-import { RentalDetail } from '../models/rentalDetail';
 import { RentalResponseModel } from '../models/rentalResponseModel';
+import { ResponseModel } from '../models/responseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,8 @@ export class RentalService {
     let newPath = this.apiUrl + "getdetails";
     return this.httpClient.get<RentalResponseModel>(newPath);
   }
-  addRental(rental:Rental):Observable<Rental> {
+  addRental(rental:Rental):Observable<ResponseModel> {
     let newPath = this.apiUrl + "addrental";
-    return this.httpClient.post<Rental>(newPath,rental);
+    return this.httpClient.post<ResponseModel>(newPath,rental);
   }
 }

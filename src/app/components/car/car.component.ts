@@ -7,6 +7,7 @@ import { CarUser } from 'src/app/models/carUser';
 import { Color } from 'src/app/models/color';
 import { Rental } from 'src/app/models/rental';
 import { RentalDetail } from 'src/app/models/rentalDetail';
+import { ResponseModel } from 'src/app/models/responseModel';
 import { BrandService } from 'src/app/services/brand.service';
 import { CarUserService } from 'src/app/services/car-user.service';
 import { CarService } from 'src/app/services/car.service';
@@ -24,7 +25,13 @@ export class CarComponent implements OnInit {
   carImages: CarImage[];
   brands:Brand[];
   colors:Color[];
-  rental:Rental;
+  rental:Rental = {
+    rentalId: 0,
+    carId: 0,
+    rentDate: "",
+    returnDate: "",
+    userId : 0
+  };
   carUsers:CarUser[];
   dataLoaded = false;
   filterText="";
@@ -53,6 +60,7 @@ export class CarComponent implements OnInit {
       }
       this.getBrands();
       this.getColors();
+      this.getCarUsers();
   });
 }
 
@@ -139,7 +147,9 @@ export class CarComponent implements OnInit {
 
   addRental(rental:Rental){
     rental.carId = this.mainCar.carId;
-    this.RentalService.addRental(rental);
+    this.RentalService.addRental(rental).subscribe((response)=>{
+      console.log(response.success);
+    });
   }
 
 }
