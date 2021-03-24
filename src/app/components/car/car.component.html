@@ -123,6 +123,64 @@
     </tr>
   </tbody>
 </table>
+
+<div *ngIf="rental.rentalId == 1" style="margin-right: 25px;" class="card" style="width: 48rem;">
+  <div class="card-header">
+    Ödeme Bilgileri
+  </div>
+  <ul class="list-group list-group-flush">
+    <table style="width: 100%;">
+      <td style="width: 75%;">
+        <tr>
+          <span class="input-group-text">Toplam Fiyat</span>
+        </tr>
+        <tr>
+          <span style="margin-top: 16px;" class="input-group-text">Kart Sahibinin İsmi</span>
+        </tr>
+        <tr>
+          <span style="margin-top: 16px;" class="input-group-text">Kart Numarası</span>
+        </tr>
+        <tr>
+          <span class="input-group-text" style="margin-top: 16px;">Kart Bitiş Tarihi</span>
+        </tr>
+        <tr>
+          <span class="input-group-text" style="margin-top: 16px;">Güvenlik Kodu</span>
+        </tr>
+      </td>
+      <td style="width: 25%;">
+        <tr>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" [placeholder]="totalPrice(rental.rentDate,rental.returnDate) | currency:'₺'" style="text-align: right;" disabled>
+          </div>
+        </tr>
+        <tr>
+          <div class="input-group mb-3">
+            <input [(ngModel)]="creditCard.name" type="text" class="form-control" placeholder="Kart Üzerindeki İsim" style="text-align: right;">
+          </div>
+        </tr>
+        <tr>
+          <div class="input-group mb-3">
+            <input [(ngModel)]="creditCard.cardNo" type="text" class="form-control" placeholder="Kart Numarası" style="text-align: right;">
+          </div>
+        </tr>
+        <tr>
+          <div class="input-group mb-3">
+            <input [(ngModel)]="creditCard.expiringDate" type="text" class="form-control" placeholder="Kart Bitiş Tarihi(AA/YY)" style="text-align: right;">
+          </div>        
+        </tr>
+        <tr>
+          <div class="input-group mb-3">
+            <input [(ngModel)]="creditCard.cvv" type="text" class="form-control" placeholder="CVV(Güvenlik Kodu)" style="text-align: right;">
+          </div>        
+        </tr>
+      </td>
+    </table>
+  </ul>
+  <div class="card-footer">
+    <button (click)="pay(creditCard)" class="btn btn-danger" style="width: 250px;float: right;">Ödeme Yap</button>
+  </div>
+</div>
+
 <div *ngIf="mainCar"
   id="carouselExampleControls"
   class="carousel slide"
@@ -159,3 +217,7 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+
+
+
+

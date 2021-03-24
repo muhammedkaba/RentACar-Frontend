@@ -14,3 +14,9 @@
 .table tr{
     border-color: rgb(104, 104, 202);
 }
+
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+}

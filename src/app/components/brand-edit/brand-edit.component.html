@@ -1,0 +1,52 @@
+<div class="content">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header"><h5 class="title">Marka düzenle</h5></div>
+        <div class="card-body">
+          <form [formGroup]="brandEditForm">
+            <div class="mb-3">
+                <label for="brandName">Marka seçin</label>
+                <div class="form-group">
+                  <select class="form-select" formControlName="brandId" [(ngModel)]="mainBrandId">
+                    <option
+                      *ngFor="let brand of brands"
+                      value="{{ brand.brandId }}"
+                    >
+                      {{ brand.brandName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            <div *ngIf="mainBrandId != null" class="mb-3">
+              <label for="brandName">Marka id</label>
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="brandId"
+                  class="form-control"
+                  placeholder="{{mainBrandId}}"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="mb-3">
+                <label for="brandName">Yeni marka adı</label>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    id="brandName"
+                    formControlName="brandName"
+                    class="form-control"
+                    placeholder="Marka adı"
+                  />
+                </div>
+              </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-fill btn-warning" (click)="update()">Düzenle</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
