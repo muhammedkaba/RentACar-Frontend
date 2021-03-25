@@ -1,1 +1,120 @@
-<p>car-edit works!</p>
+<div class="mb-3">
+  <label
+    for="filterText"
+    class="form-label"
+    style="margin-left: 45%; font-weight: bold"
+    >ARABA ARA</label
+  >
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    class="form-control"
+    id="filterText"
+    placeholder="Arama ifadesi giriniz"
+  />
+</div>
+
+<div *ngIf="filterText.length > 1" class="alert alert-primary">
+  {{ filterText }} aradınız
+</div>
+<div *ngIf="!mainCar" class="alert alert-warning" style="text-align: center;"><h5>Güncellemek istediğiniz aracı seçiniz.</h5></div>
+<table class="table table-bordered">
+  <thead>
+    <tr class="table-success">
+      <th>Id</th>
+      <th>Marka Adı</th>
+      <th>Renk</th>
+      <th>Model Yılı</th>
+      <th>Günlük Fiyat</th>
+      <th>Açıklama</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      routerLink="/cars/edit/{{ car.carId }}"
+      *ngFor="let car of cars | filterPipe: filterText"
+    >
+      <td>{{ car.carId }}</td>
+      <td>{{ car.brandName }}</td>
+      <td>{{ car.colorName }}</td>
+      <td>{{ car.modelYear }}</td>
+      <td>{{ car.dailyPrice | currency: "₺ " }}</td>
+      <td>{{ car.carName }}</td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="mainCar" class="content">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header"><h5 class="title">Araba güncelle</h5></div>
+      <div class="card-body">
+        <form>
+          <div class="mb-3">
+            <label for="brandName">Marka Adı</label>
+            <div>
+              <select
+                class="form-select"
+                [(ngModel)]="mainCar.brandId"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option
+                  *ngFor="let brand of brands"
+                  value="{{ brand.brandId }}"
+                >
+                  {{ brand.brandName }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="colorName">Renk Adı</label>
+            <select
+              class="form-select"
+              [(ngModel)]="mainCar.colorId"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <option *ngFor="let color of colors" value="{{ color.colorId }}">
+                {{ color.colorName }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="modelYear">Model Yılı</label>
+            <input
+              type="number"
+              [(ngModel)]="mainCar.modelYear"
+              [ngModelOptions]="{ standalone: true }"
+              id="modelYear"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="dailyPrice">Günlük Fiyat</label>
+            <input
+              type="number"
+              [(ngModel)]="mainCar.dailyPrice"
+              [ngModelOptions]="{ standalone: true }"
+              id="dailyPrice"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description">Araba Adı</label>
+            <input
+              type="text"
+              [(ngModel)]="mainCar.description"
+              [ngModelOptions]="{ standalone: true }"
+              id="description"
+              class="form-control"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-fill btn-warning" (click)="update()">
+          Güncelle
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
