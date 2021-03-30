@@ -63,7 +63,7 @@
         data-bs-target="#exampleModal"
         type="button"
         class="btn btn-warning"
-        style="float: right; margin-bottom: 15px"
+        style="float: right; margin-bottom: 15px;"
       >
         Kirala
       </button>
@@ -131,13 +131,13 @@
                     style="max-width: 200px"
                     class="form-select"
                     aria-label="Default select example"
-                    [(ngModel)]="rental.userId"
+                    [(ngModel)]="rental.customerId"
                   >
                     <option
-                      *ngFor="let carUser of carUsers"
-                      value="{{ carUser.id }}"
+                      *ngFor="let customer of customers"
+                      value="{{ customer.userId }}"
                     >
-                      {{ carUser.firstName }} {{ carUser.lastName }}
+                      {{ customer.companyName }}
                     </option>
                   </select>
                 </tr>
@@ -204,6 +204,7 @@
           <th>Model Yılı</th>
           <th>Günlük Fiyat</th>
           <th>Açıklama</th>
+          <th>Min. Findeks</th>
         </tr>
       </thead>
       <tbody>
@@ -217,6 +218,7 @@
           <td>{{ car.modelYear }}</td>
           <td>{{ car.dailyPrice | currency: "₺ " }}</td>
           <td>{{ car.carName }}</td>
+          <td>{{ car.minFindeks }}</td>
         </tr>
       </tbody>
     </table>

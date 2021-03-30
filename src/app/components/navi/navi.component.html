@@ -37,12 +37,25 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" routerLink="rentals" style="font-weight: bold;">Kiralamalar</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" routerLink="carusers" style="font-weight: bold;">Üyeler</a></li>
+            <li><a class="dropdown-item" routerLink="customers" style="font-weight: bold;">Müşteriler</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" routerLink="cars" style="font-weight: bold;">Arabalar</a></li>
           </ul>
         </li>
       </ul>
+      <div *ngIf="isAuthenticate == false">
+        <button style="margin-right: 15px;" class="btn btn-success" routerLink="login">Giriş yap</button>
+        <button style="margin-right: 15px;" class="btn btn-warning" routerLink="register">Kayıt</button>
+      </div>
+      <div class="dropdown" *ngIf="isAuthenticate == true" style="margin-right: 15px;">
+        <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          {{user.firstName}} {{user.lastName}}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" routerLink="myprofile">Bilgilerim</a></li>
+          <li><a class="dropdown-item" (click)="logOut()">Çıkış yap</a></li>
+        </ul>
+      </div>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>

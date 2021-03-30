@@ -1,0 +1,68 @@
+<div class="mb-3">
+  <div class="content">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header"><h5 class="title">Bilgilerim</h5></div>
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+                <label for="firstName">İsim</label>
+                <input
+                  type="text"
+                  [(ngModel)]="user.firstName"
+                  [ngModelOptions]="{ standalone: true }"
+                  id="firstName"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="lastName">Soyisim</label>
+                <input
+                  type="text"
+                  [(ngModel)]="user.lastName"
+                  [ngModelOptions]="{ standalone: true }"
+                  id="lastName"
+                  class="form-control"
+                />
+              </div>
+            <div class="mb-3">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                [(ngModel)]="user.email"
+                [ngModelOptions]="{ standalone: true }"
+                id="email"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email">Eski Parola</label>
+              <input
+                type="text"
+                [(ngModel)]="user.email"
+                [ngModelOptions]="{ standalone: true }"
+                id="email"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email">Yeni Parola</label>
+              <input
+                type="text"
+                [(ngModel)]="user.email"
+                [ngModelOptions]="{ standalone: true }"
+                id="email"
+                class="form-control"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-fill btn-warning" (click)="update()">
+            Güncelle
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

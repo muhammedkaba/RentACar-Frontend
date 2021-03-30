@@ -4,11 +4,15 @@ import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { BrandEditComponent } from './components/brand-edit/brand-edit.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
 import { CarEditComponent } from './components/car-edit/car-edit.component';
-import { CarUserComponent } from './components/car-user/car-user.component';
 import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { ColorEditComponent } from './components/color-edit/color-edit.component';
+import { CustomerComponent } from './components/customer/customer.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { RentalComponent } from './components/rental/rental.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {path:"",pathMatch:"full", component:CarComponent},
@@ -16,15 +20,18 @@ const routes: Routes = [
   {path:"cars/color/:colorId", component:CarComponent},
   {path:"cars/brand/:brandId", component:CarComponent},
   {path:"cars/details/:carId", component:CarComponent},
-  {path:"brands/add", component:BrandAddComponent},
-  {path:"colors/add", component:ColorAddComponent},
-  {path:"cars/add", component:CarAddComponent},
+  {path:"brands/add", component:BrandAddComponent, canActivate:[LoginGuard]},
+  {path:"colors/add", component:ColorAddComponent, canActivate:[LoginGuard]},
+  {path:"cars/add", component:CarAddComponent, canActivate:[LoginGuard]},
   {path:"rentals", component:RentalComponent},
-  {path:"carusers", component:CarUserComponent},
-  {path:"colors/edit", component:ColorEditComponent},
-  {path:"brands/edit", component:BrandEditComponent},
-  {path:"cars/edit", component:CarEditComponent},
-  {path:"cars/edit/:carId", component:CarEditComponent},
+  {path:"customers", component:CustomerComponent},
+  {path:"colors/edit", component:ColorEditComponent, canActivate:[LoginGuard]},
+  {path:"brands/edit", component:BrandEditComponent,  canActivate:[LoginGuard]},
+  {path:"cars/edit", component:CarEditComponent, canActivate:[LoginGuard]},
+  {path:"cars/edit/:carId", component:CarEditComponent, canActivate:[LoginGuard]},
+  {path:"login", component:LoginComponent},
+  {path:"register", component:RegisterComponent},
+  {path:"myprofile", component:UserEditComponent},
 ];
 
 @NgModule({

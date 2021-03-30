@@ -27,6 +27,7 @@
       <th>Model Yılı</th>
       <th>Günlük Fiyat</th>
       <th>Açıklama</th>
+      <th>Min. Findeks</th>
     </tr>
   </thead>
   <tbody>
@@ -40,6 +41,7 @@
       <td>{{ car.modelYear }}</td>
       <td>{{ car.dailyPrice | currency: "₺ " }}</td>
       <td>{{ car.carName }}</td>
+      <td>{{ car.minFindeks }}</td>
     </tr>
   </tbody>
 </table>
@@ -105,6 +107,16 @@
               [(ngModel)]="mainCar.description"
               [ngModelOptions]="{ standalone: true }"
               id="description"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="description">Min. Findeks Puanı</label>
+            <input
+              type="number"
+              [(ngModel)]="mainCar.minFindeks"
+              [ngModelOptions]="{ standalone: true }"
+              id="minFindeks"
               class="form-control"
             />
           </div>

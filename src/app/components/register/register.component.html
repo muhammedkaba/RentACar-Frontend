@@ -1,0 +1,52 @@
+<body class="text-center">
+    <main class="form-signin">
+      <form [formGroup]="loginForm">
+        <h1 class="h3 mb-3 fw-normal">Kayıt ol</h1>
+  
+        <div class="form-floating">
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            id="email"
+          />
+          <label for="email">E-posta</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+            id="password"
+          />
+          <label for="password">Parola</label>
+        </div>
+        <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="firstName"
+              id="firstName"
+            />
+            <label for="firstName">Ad</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="lastName"
+              id="lastName"
+            />
+            <label for="lastName">Soyad</label>
+          </div>
+  
+
+        <button (click)="register()" class="w-100 btn btn-lg btn-primary">
+          Kayıt ol
+        </button>
+        <div class="w-100 btn btn-sm btn-warning" routerLink="/login" id="loginButton">Giriş yapma ekranı</div>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+      </form>
+    </main>
+  </body>
+  

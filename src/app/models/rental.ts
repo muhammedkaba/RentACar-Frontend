@@ -1,7 +1,7 @@
 export interface Rental{
     rentalId:number;
     carId:number;
-    userId:number;
+    customerId:number;
     rentDate:string;
     returnDate:string;
 }

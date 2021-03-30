@@ -5,5 +5,6 @@ export interface CarDetail{
     carName:string;
     brandName:string;
     colorName:string;
+    minFindeks:number;
     imagePath:string;
 }
