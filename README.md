@@ -2,7 +2,7 @@
 
 ### Muhammed Kaba - Rent a Car Frontend
 ### Araba kiralama projesi.
-Kredi kartı kaydetme eklendi.
+Kredi kartı kaydetme eklendi.<br>
 Kullanıcı bilgilerini güncelleme eklendi.
 # Resimler
 
