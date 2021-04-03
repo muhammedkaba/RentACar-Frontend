@@ -1,6 +1,9 @@
 # Rent a Car
 
 ### Muhammed Kaba - Rent a Car Frontend
+### Araba kiralama projesi.
+Kredi kartı kaydetme eklendi.
+Kullanıcı bilgilerini güncelleme eklendi.
 # Resimler
 
 ![RentaCar-Frontend](https://i.imgur.com/FYNnrxN.png)
