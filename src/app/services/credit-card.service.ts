@@ -24,9 +24,9 @@ export class CreditCardService {
     return this.httpClient.get<ListResponseModel<CreditCard>>(newPath);
   }
 
-  getById(id:number):Observable<ListResponseModel<CreditCard>>{
+  getById(id:number):Observable<SingleResponseModel<CreditCard>>{
     let newPath = this.apiUrl + "getbyid?id=" + id;
-    return this.httpClient.get<ListResponseModel<CreditCard>>(newPath);
+    return this.httpClient.get<SingleResponseModel<CreditCard>>(newPath);
   }
 
 }
