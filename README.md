@@ -1,4 +1,4 @@
-# Rent a Car ( Araba kiralama projesi)
+# Rent a Car
 
 ### Muhammed Kaba - Rent a Car Frontend
 # Resimler
