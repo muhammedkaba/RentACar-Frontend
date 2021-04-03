@@ -10,14 +10,18 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class NaviComponent implements OnInit {
   isAuthenticate:boolean;
-  user:User;
+  user:User ={
+    firstName : "",
+    lastName : "",
+    email : ""
+  };
 
   constructor(private authService:AuthService,
     private userService:UserService) { }
 
   ngOnInit(): void {
-    this.isAuthenticate = this.isAuthenticated();
     this.getUserByEmail();
+    this.isAuthenticate = this.isAuthenticated();
   }
 
   isAuthenticated(){

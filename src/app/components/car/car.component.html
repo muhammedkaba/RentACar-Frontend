@@ -32,6 +32,7 @@
         <option *ngFor="let brand of brands" value="{{ brand.brandId }}">
           {{ brand.brandName }}
         </option>
+        <option value = "0">Tüm markalar</option>
       </select>
     </div>
     <div>
@@ -44,6 +45,7 @@
         <option *ngFor="let color of colors" value="{{ color.colorId }}">
           {{ color.colorName }}
         </option>
+        <option value = "0">Tüm renkler</option>
       </select>
     </div>
     <div>
@@ -63,7 +65,7 @@
         data-bs-target="#exampleModal"
         type="button"
         class="btn btn-warning"
-        style="float: right; margin-bottom: 15px;"
+        style="float: right; margin-bottom: 15px"
       >
         Kirala
       </button>
@@ -238,20 +240,25 @@
             </tr>
             <tr>
               <span style="margin-top: 16px" class="input-group-text"
+                >Kayıtlı Kartlar</span
+              >
+            </tr>
+            <tr *ngIf="creditCardId == 0">
+              <span style="margin-top: 16px" class="input-group-text"
                 >Kart Sahibinin İsmi</span
               >
             </tr>
-            <tr>
+            <tr *ngIf="creditCardId == 0">
               <span style="margin-top: 16px" class="input-group-text"
                 >Kart Numarası</span
               >
             </tr>
-            <tr>
+            <tr *ngIf="creditCardId == 0">
               <span class="input-group-text" style="margin-top: 16px"
                 >Kart Bitiş Tarihi</span
               >
             </tr>
-            <tr>
+            <tr *ngIf="creditCardId == 0">
               <span class="input-group-text" style="margin-top: 16px"
                 >Güvenlik Kodu</span
               >
@@ -273,8 +280,26 @@
               </div>
             </tr>
             <tr>
+              <div class="form-group">
+                <select
+                  class="form-select"
+                  [(ngModel)]="creditCardId"
+                  style="max-width: 100%; margin-bottom: 16px;"
+                >
+                  <option
+                    *ngFor="let creditCard of creditCards"
+                    value="{{ creditCard.id }}"
+                  >
+                    Kart No : {{ creditCard.cardNo }}
+                  </option>
+                  <option value=0></option>
+                </select>
+              </div>
+            </tr>
+            <tr>
               <div class="input-group mb-3">
                 <input
+                  *ngIf="creditCardId == 0"
                   [(ngModel)]="creditCard.name"
                   type="text"
                   class="form-control"
@@ -286,6 +311,7 @@
             <tr>
               <div class="input-group mb-3">
                 <input
+                *ngIf="creditCardId == 0"
                   [(ngModel)]="creditCard.cardNo"
                   type="text"
                   class="form-control"
@@ -297,6 +323,7 @@
             <tr>
               <div class="input-group mb-3">
                 <input
+                *ngIf="creditCardId == 0"
                   [(ngModel)]="creditCard.expiringDate"
                   type="text"
                   class="form-control"
@@ -308,6 +335,7 @@
             <tr>
               <div class="input-group mb-3">
                 <input
+                *ngIf="creditCardId == 0"
                   [(ngModel)]="creditCard.cvv"
                   type="text"
                   class="form-control"
@@ -316,12 +344,18 @@
                 />
               </div>
             </tr>
+            <tr>
+              <div class="form-check" *ngIf="creditCardId == 0">
+                <input type="checkbox" class="form-check-input" id="saveCard" [(ngModel)]="saveCard">
+                <label class="form-check-label" for="saveCard">Kartı kaydet</label>
+              </div>
+            </tr>
           </td>
         </table>
       </ul>
       <div class="card-footer">
         <button
-          (click)="pay(creditCard)"
+          (click)="pay()"
           class="btn btn-danger"
           style="width: 250px; float: right"
         >
@@ -337,10 +371,7 @@
       data-bs-ride="carousel"
     >
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="..." width="" height="" alt="..." />
-        </div>
-        <div class="carousel-item" *ngFor="let carImage of carImages">
+        <div *ngFor="let carImage of carImages" [class]="getCarImageClass(carImage)">
           <img
             width="100%"
             height="40%"

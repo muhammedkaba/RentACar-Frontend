@@ -4,4 +4,5 @@ export interface CreditCard{
     name:string;
     expiringDate:string;
     cvv:string;
+    customerId:number;
 }

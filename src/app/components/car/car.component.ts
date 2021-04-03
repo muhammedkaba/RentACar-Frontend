@@ -39,10 +39,15 @@ export class CarComponent implements OnInit {
     expiringDate: '',
     id: 0,
     name: '',
+    customerId: 0,
   };
+  creditCards: CreditCard[];
+  creditCardId: number = 0;
+  selectedCard: CreditCard;
   customers: Customer[];
   dataLoaded = false;
   filterText = '';
+  saveCard = false;
   filterColorId: number = 0;
   filterBrandId: number = 0;
 
@@ -119,6 +124,13 @@ export class CarComponent implements OnInit {
     });
   }
 
+  getCarImageClass(carImage:CarImage){
+    if (carImage == this.carImages[0]) {
+      return "carousel-item active";
+    }
+    return "carousel-item";
+  }
+
   getCarsByBrandAndColor(brandId: number, colorId: number) {
     this.CarService.getCarsByBrandAndColor(brandId, colorId).subscribe(
       (response) => {
@@ -129,16 +141,18 @@ export class CarComponent implements OnInit {
   }
 
   getCarsByFilter(brandId: number, colorId: number) {
-    if (brandId === 0 && colorId === 0) {
-    } else if (brandId !== 0 && colorId === 0) {
+    if (brandId == 0 && colorId == 0) {
+      this.getCars();
+      this.toastrService.success('Tüm arabalar listelendi.', 'Başarılı');
+    } else if (brandId != 0 && colorId == 0) {
       this.getCarsByBrand(brandId);
-      this.toastrService.success('Arabalar listelendi.', 'Başarılı');
-    } else if (colorId !== 0 && brandId === 0) {
+      this.toastrService.success('Arabalar markaya göre listelendi.', 'Başarılı');
+    } else if (colorId != 0 && brandId == 0) {
       this.getCarsByColor(colorId);
-      this.toastrService.success('Arabalar listelendi.', 'Başarılı');
+      this.toastrService.success('Arabalar renge göre listelendi.', 'Başarılı');
     } else {
       this.getCarsByBrandAndColor(brandId, colorId);
-      this.toastrService.success('Arabalar listelendi.', 'Başarılı');
+      this.toastrService.success('Arabalar marka ve renge göre listelendi.', 'Başarılı');
     }
   }
 
@@ -148,14 +162,16 @@ export class CarComponent implements OnInit {
     });
   }
 
-  addRental(rental:Rental) {
+  addRental(rental: Rental) {
     this.rental.carId = this.mainCar.carId;
+    this.getCreditCardsByCustomerId(rental.customerId);
     this.RentalService.addRental(rental).subscribe(
       (response) => {
-        this.toastrService.success(response.message, 'Başarılı');
+        this.toastrService.success(response.message, 'Kiralama eklendi.');
+        this.rental.rentalId = 1;
       },
       (responseError) => {
-        console.log(responseError);
+        this.toastrService.error('Kiralama başarısız.');
       }
     );
   }
@@ -165,9 +181,33 @@ export class CarComponent implements OnInit {
     return diff * this.mainCar.dailyPrice;
   }
 
-  pay(creditCard: CreditCard) {
-    this.creditCardService.addCreditCard(creditCard).subscribe((response) => {
-      this.toastrService.success('Ödeme yapıldı.', 'İşlem Başarılı');
+  pay() {
+    this.toastrService.info("Lütfen bekleyin. Ödeme yapılıyor.");
+    if (this.creditCardId != 0) {
+      this.creditCardService.getById(this.creditCardId).subscribe((response) => {
+          console.log(response);
+          this.selectedCard = response.data[0];
+        });
+    }
+    setTimeout(() => {
+      this.toastrService.success("Ödeme başarılı.");
+      if (this.creditCardId != 0) {
+        this.creditCard = this.selectedCard;
+      }
+      this.creditCard.customerId = this.rental.customerId;
+      this.creditCard.id = 0;
+      if(this.saveCard == true){
+        this.creditCardService.addCreditCard(this.creditCard).subscribe((response) => {
+          this.toastrService.success('Kart kaydedildi.');
+        });
+      }
+    }, 3000);
+  }
+
+  getCreditCardsByCustomerId(customerId: number) {
+    this.creditCardService.getByCustomerId(customerId).subscribe((response) => {
+      this.creditCards = response.data;
     });
   }
+
 }

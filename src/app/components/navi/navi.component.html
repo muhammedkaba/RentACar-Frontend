@@ -48,7 +48,7 @@
         <button style="margin-right: 15px;" class="btn btn-warning" routerLink="register">Kayıt</button>
       </div>
       <div class="dropdown" *ngIf="isAuthenticate == true" style="margin-right: 15px;">
-        <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <button *ngIf="user" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           {{user.firstName}} {{user.lastName}}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">

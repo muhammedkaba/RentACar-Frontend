@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("email",loginModel.email);
         window.location.reload();
       },responseError=>{
-        this.toastrService.error(responseError.error);
+        this.toastrService.error("Parola yanlış.");
       });
     }
   }

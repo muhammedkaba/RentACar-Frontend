@@ -36,29 +36,29 @@
               />
             </div>
             <div class="mb-3">
-              <label for="email">Eski Parola</label>
+              <label for="password">Eski Parola</label>
               <input
-                type="text"
-                [(ngModel)]="user.email"
+                type="password"
+                [(ngModel)]="userCheckModel.password"
                 [ngModelOptions]="{ standalone: true }"
-                id="email"
+                id="password"
                 class="form-control"
               />
             </div>
             <div class="mb-3">
-              <label for="email">Yeni Parola</label>
+              <label for="password2">Yeni Parola</label>
               <input
-                type="text"
-                [(ngModel)]="user.email"
+                type="password"
+                [(ngModel)]="userToUpdate.password"
                 [ngModelOptions]="{ standalone: true }"
-                id="email"
+                id="password2"
                 class="form-control"
               />
             </div>
           </form>
         </div>
         <div class="card-footer">
-          <button class="btn btn-fill btn-warning" (click)="update()">
+          <button class="btn btn-fill btn-warning" (click)="checkUser()">
             Güncelle
           </button>
         </div>
