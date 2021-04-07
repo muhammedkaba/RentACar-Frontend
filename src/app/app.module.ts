@@ -26,6 +26,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { CarDetailComponent } from './components/car-detail/car-detail.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
     LoginComponent,
     RegisterComponent,
     CustomerComponent,
-    UserEditComponent
+    UserEditComponent,
+    CarDetailComponent
   ],
   imports: [
     BrowserModule,

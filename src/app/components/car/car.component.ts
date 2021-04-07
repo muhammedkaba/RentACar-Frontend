@@ -7,13 +7,9 @@ import { CarImage } from 'src/app/models/carImage';
 import { Customer } from 'src/app/models/customer';
 import { Color } from 'src/app/models/color';
 import { CreditCard } from 'src/app/models/creditCard';
-import { Rental } from 'src/app/models/rental';
 import { BrandService } from 'src/app/services/brand.service';
 import { CarService } from 'src/app/services/car.service';
 import { ColorService } from 'src/app/services/color.service';
-import { CreditCardService } from 'src/app/services/credit-card.service';
-import { RentalService } from 'src/app/services/rental.service';
-import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-car',
@@ -24,30 +20,11 @@ export class CarComponent implements OnInit {
   cars: CarDetail[] = [];
   mainCar: CarDetail;
   carImages: CarImage[];
+  carImagePath: string;
   brands: Brand[];
   colors: Color[];
-  rental: Rental = {
-    rentalId: 0,
-    carId: 0,
-    rentDate: '',
-    returnDate: '',
-    customerId: 0,
-  };
-  creditCard: CreditCard = {
-    cardNo: '',
-    cvv: '',
-    expiringDate: '',
-    id: 0,
-    name: '',
-    customerId: 0,
-  };
-  creditCards: CreditCard[];
-  creditCardId: number = 0;
-  selectedCard: CreditCard;
-  customers: Customer[];
   dataLoaded = false;
   filterText = '';
-  saveCard = false;
   filterColorId: number = 0;
   filterBrandId: number = 0;
 
@@ -55,10 +32,7 @@ export class CarComponent implements OnInit {
     private CarService: CarService,
     private BrandService: BrandService,
     private ColorService: ColorService,
-    private customerService: CustomerService,
-    private RentalService: RentalService,
     private activatedRoute: ActivatedRoute,
-    private creditCardService: CreditCardService,
     private toastrService: ToastrService
   ) {}
 
@@ -75,7 +49,6 @@ export class CarComponent implements OnInit {
       }
       this.getBrands();
       this.getColors();
-      this.getCustomers();
     });
   }
 
@@ -124,12 +97,6 @@ export class CarComponent implements OnInit {
     });
   }
 
-  getCarImageClass(carImage:CarImage){
-    if (carImage == this.carImages[0]) {
-      return "carousel-item active";
-    }
-    return "carousel-item";
-  }
 
   getCarsByBrandAndColor(brandId: number, colorId: number) {
     this.CarService.getCarsByBrandAndColor(brandId, colorId).subscribe(
@@ -154,77 +121,6 @@ export class CarComponent implements OnInit {
       this.getCarsByBrandAndColor(brandId, colorId);
       this.toastrService.success('Arabalar marka ve renge göre listelendi.', 'Başarılı');
     }
-  }
-
-  getCustomers() {
-    this.customerService.getCustomers().subscribe((response) => {
-      this.customers = response.data;
-    });
-  }
-
-  addRental(rental: Rental) {
-    this.rental.carId = this.mainCar.carId;
-    this.getCreditCardsByCustomerId(rental.customerId);
-    this.RentalService.addRental(rental).subscribe(
-      (response) => {
-        this.toastrService.success(response.message, 'Kiralama eklendi.');
-        this.rental.rentalId = 1;
-      },
-      (responseError) => {
-        console.log(responseError);
-        this.toastrService.error('Kiralama başarısız.');
-      }
-    );
-  }
-
-  totalPrice(date1: string, date2: string): number {
-    var diff = Math.ceil((Date.parse(date2) - Date.parse(date1)) / 86400000);
-    return diff * this.mainCar.dailyPrice;
-  }
-
-
-  pay() {
-    this.toastrService.info("Lütfen bekleyin. Ödeme yapılıyor.");
-    if (this.creditCardId != 0) {
-      this.creditCardService.getById(this.creditCardId).subscribe((response) => {
-          console.log(response);
-          this.selectedCard = response.data;
-        });
-    }
-    setTimeout(() => {
-      this.toastrService.success("Ödeme başarılı.");
-      if (this.creditCardId != 0) {
-        this.creditCard = this.selectedCard;
-      }
-      this.creditCard.customerId = this.rental.customerId;
-      this.creditCard.id = 0;
-      if(this.saveCard == true){
-        this.creditCardService.addCreditCard(this.creditCard).subscribe((response) => {
-          this.toastrService.success('Kart kaydedildi.');
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
-        },((responseError)=>{
-          console.log(responseError);
-          for (let i = 0; i < responseError.error.Errors.length; i++) {
-            this.toastrService.error(responseError.error.Errors[i].ErrorMessage);
-          }
-        }));
-      }
-    }, 3000);
-  }
-
-  getCreditCardsByCustomerId(customerId: number) {
-    this.creditCardService.getByCustomerId(customerId).subscribe((response) => {
-      this.creditCards = response.data;
-    });
-  }
-  
-  ifPaymentFilled(){
-    if ((this.creditCard.cardNo != '' && this.creditCard.name != '' && this.creditCard.cvv != '' && this.creditCard.expiringDate != '') || this.creditCardId != 0) {
-      return false;
-    }
-    return true;
   }
 
 }

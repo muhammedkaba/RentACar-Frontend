@@ -1,17 +1,7 @@
 <div class="mb-3" *ngIf="!mainCar">
-  <label
-    for="filterText"
-    class="form-label"
-    style="margin-left: 45%; font-weight: bold"
-    >ARABA ARA</label
-  >
-  <input
-    type="text"
-    [(ngModel)]="filterText"
-    class="form-control"
-    id="filterText"
-    placeholder="Arama ifadesi giriniz"
-  />
+  <label for="filterText" class="form-label" style="margin-left: 45%; font-weight: bold">ARABA ARA</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText"
+    placeholder="Arama ifadesi giriniz" />
 </div>
 
 <div *ngIf="filterText.length > 1" class="alert alert-primary">
@@ -19,12 +9,7 @@
 </div>
 
 <div>
-  <select
-  *ngIf="!mainCar"
-    class="form-select"
-    [(ngModel)]="filterBrandId"
-    aria-label="Default select example"
-  >
+  <select *ngIf="!mainCar" class="form-select" [(ngModel)]="filterBrandId" aria-label="Default select example">
     <option *ngFor="let brand of brands" value="{{ brand.brandId }}">
       {{ brand.brandName }}
     </option>
@@ -32,13 +17,8 @@
   </select>
 </div>
 <div>
-  <select
-  *ngIf="!mainCar"
-    style="margin-left: 10px"
-    class="form-select"
-    [(ngModel)]="filterColorId"
-    aria-label="Default select example"
-  >
+  <select *ngIf="!mainCar" style="margin-left: 10px" class="form-select" [(ngModel)]="filterColorId"
+    aria-label="Default select example">
     <option *ngFor="let color of colors" value="{{ color.colorId }}">
       {{ color.colorName }}
     </option>
@@ -46,357 +26,42 @@
   </select>
 </div>
 <div>
-  <button
-  *ngIf="!mainCar"
-    (click)="getCarsByFilter(filterBrandId, filterColorId)"
-    style="float: left; margin-left: 25px; margin-bottom: 15px"
-    type="button"
-    class="btn btn-primary"
-  >
+  <button *ngIf="!mainCar" (click)="getCarsByFilter(filterBrandId, filterColorId)"
+    style="float: left; margin-left: 25px; margin-bottom: 15px" type="button" class="btn btn-primary">
     Filtrele
   </button>
 </div>
 
-
-
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Kiralama Bilgileri</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <table style="width: 100%">
-          <td style="width: 60%">
-            <tr>
-              <span class="input-group-text">Günlük Fiyat</span>
-            </tr>
-            <tr>
-              <span style="margin-top: 16px" class="input-group-text"
-                >Müşteri Seçiniz</span
-              >
-            </tr>
-            <tr>
-              <span class="input-group-text" style="margin-top: 16px"
-                >Kiralama Tarihi</span
-              >
-            </tr>
-            <tr>
-              <span class="input-group-text" style="margin-top: 16px"
-                >Teslim Tarihi</span
-              >
-            </tr>
-          </td>
-          <td style="width: 40%">
-            <tr>
-              <div class="input-group mb-3">
-                <input
-                  *ngIf="mainCar"
-                  type="text"
-                  class="form-control"
-                  placeholder="{{ mainCar.dailyPrice | currency: '₺ ' }}"
-                  aria-label="Username"
-                  style="text-align: right"
-                  aria-describedby="basic-addon1"
-                  disabled
-                />
-              </div>
-            </tr>
-            <tr>
-              <select
-                style="max-width: 200px"
-                class="form-select"
-                aria-label="Default select example"
-                [(ngModel)]="rental.customerId"
-              >
-                <option
-                  *ngFor="let customer of customers"
-                  value="{{ customer.userId }}"
-                >
-                  {{ customer.companyName }}
-                </option>
-              </select>
-            </tr>
-            <tr>
-              <input
-                [(ngModel)]="rental.rentDate"
-                type="datetime-local"
-                style="
-                  text-align: center;
-                  margin-top: 17px;
-                  height: 36px;
-                  border-radius: 4px;
-                  border-width: 1px;
-                  border-color: lightgray;
-                "
-              />
-            </tr>
-            <tr>
-              <input
-                [(ngModel)]="rental.returnDate"
-                type="datetime-local"
-                style="
-                  text-align: center;
-                  margin-top: 18px;
-                  height: 36px;
-                  border-radius: 4px;
-                  border-width: 1px;
-                  border-color: lightgray;
-                "
-              />
-            </tr>
-          </td>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Kapat
-        </button>
-        <button (click)="addRental(rental)" class="btn btn-primary" data-bs-dismiss="modal">
-          Kirala
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div
-  *ngIf="dataLoaded == false"
-  class="spinner-border text-secondary"
-  role="status"
->
+<div *ngIf="dataLoaded == false" class="spinner-border text-secondary" role="status">
   <span class="visually-hidden">Loading...</span>
 </div>
-<table *ngIf="dataLoaded != false" class="table table-striped">
-  <thead>
-    <tr class="table-warning">
-      <th>Id</th>
-      <th>Marka Adı</th>
-      <th>Renk</th>
-      <th>Model Yılı</th>
-      <th>Günlük Fiyat</th>
-      <th>Açıklama</th>
-      <th>Min. Findeks</th>
-      <th *ngIf="mainCar" style="text-align: center;">Kirala</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      routerLink="/cars/details/{{ car.carId }}"
-      *ngFor="let car of cars | filterPipe: filterText"
-    >
-      <td>{{ car.carId }}</td>
-      <td>{{ car.brandName }}</td>
-      <td>{{ car.colorName }}</td>
-      <td>{{ car.modelYear }}</td>
-      <td>{{ car.dailyPrice | currency: "₺ " }}</td>
-      <td>{{ car.carName }}</td>
-      <td>{{ car.minFindeks }}</td>
-      <td *ngIf="mainCar"><div>
-        <button
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-          type="button"
-          class="btn btn-warning btn-sm"
-          style="width: 100%;text-align: center;"
-        >
+<div style="clear: both;" class="row">
+  <div class="col-md-3" *ngFor="let car of cars | filterPipe: filterText">
+    <div class="card">
+      <img src="https://localhost:44321/{{car.imagePath}}" class="card-img-top" width="375"
+        height="209">
+      <div class="card-body">
+        <h5 class="card-title">{{ car.carName }}</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Marka Adı : {{ car.brandName }} </li>
+        <li class="list-group-item">Renk Adı : {{ car.colorName }} </li>
+        <li class="list-group-item">Model Yılı : {{ car.modelYear }} </li>
+        <li class="list-group-item">Günlük Fiyat : {{ car.dailyPrice | currency: "₺ " }} </li>
+        <li class="list-group-item">Min Findeks : {{ car.minFindeks}} </li>
+      </ul>
+      <div class="card-body">
+        <button *ngIf="!mainCar" routerLink="/cars/details/{{ car.carId }}" type="button" class="btn btn-primary"
+          style="width: 100%;text-align: center;">
+          Detaylar..
+        </button>
+        <button *ngIf="mainCar" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"
+          class="btn btn-warning" style="width: 100%;text-align: center;clear: both;float: right;">
           Kirala
         </button>
-      </div></td>
-    </tr>
-  </tbody>
-</table>
-
-<div
-  *ngIf="rental.rentalId == 1"
-  style="margin-right: 25px"
-  class="card"
-  style="width: 48rem"
->
-  <div class="card-header">Ödeme Bilgileri</div>
-  <ul class="list-group list-group-flush">
-    <table style="width: 100%">
-      <td style="width: 75%">
-        <tr>
-          <span class="input-group-text">Toplam Fiyat</span>
-        </tr>
-        <tr>
-          <span style="margin-top: 16px" class="input-group-text"
-            >Kayıtlı Kartlar</span
-          >
-        </tr>
-        <tr *ngIf="creditCardId == 0">
-          <span style="margin-top: 16px" class="input-group-text"
-            >Kart Sahibinin İsmi</span
-          >
-        </tr>
-        <tr *ngIf="creditCardId == 0">
-          <span style="margin-top: 16px" class="input-group-text"
-            >Kart Numarası</span
-          >
-        </tr>
-        <tr *ngIf="creditCardId == 0">
-          <span class="input-group-text" style="margin-top: 16px"
-            >Kart Bitiş Tarihi</span
-          >
-        </tr>
-        <tr *ngIf="creditCardId == 0">
-          <span class="input-group-text" style="margin-top: 16px"
-            >Güvenlik Kodu</span
-          >
-        </tr>
-      </td>
-      <td style="width: 25%">
-        <tr>
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              [placeholder]="
-                totalPrice(rental.rentDate, rental.returnDate) | currency: '₺'
-              "
-              style="text-align: right"
-              disabled
-            />
-          </div>
-        </tr>
-        <tr>
-          <div class="form-group">
-            <select
-              class="form-select"
-              [(ngModel)]="creditCardId"
-              style="max-width: 100%; margin-bottom: 16px"
-            >
-              <option
-                *ngFor="let creditCard of creditCards"
-                value="{{ creditCard.id }}"
-              >
-                Kart No : {{ creditCard.cardNo }}
-              </option>
-              <option value="0"></option>
-            </select>
-          </div>
-        </tr>
-        <tr>
-          <div class="input-group mb-3">
-            <input
-              *ngIf="creditCardId == 0"
-              [(ngModel)]="creditCard.name"
-              type="text"
-              class="form-control"
-              placeholder="Kart Üzerindeki İsim"
-              style="text-align: right"
-            />
-          </div>
-        </tr>
-        <tr>
-          <div class="input-group mb-3">
-            <input
-              *ngIf="creditCardId == 0"
-              [(ngModel)]="creditCard.cardNo"
-              type="text"
-              class="form-control"
-              placeholder="Kart Numarası"
-              style="text-align: right"
-            />
-          </div>
-        </tr>
-        <tr>
-          <div class="input-group mb-3">
-            <input
-              *ngIf="creditCardId == 0"
-              [(ngModel)]="creditCard.expiringDate"
-              type="text"
-              class="form-control"
-              placeholder="Kart Bitiş Tarihi(AA/YY)"
-              style="text-align: right"
-            />
-          </div>
-        </tr>
-        <tr>
-          <div class="input-group mb-3">
-            <input
-              *ngIf="creditCardId == 0"
-              [(ngModel)]="creditCard.cvv"
-              type="text"
-              maxlength="3"
-              class="form-control"
-              placeholder="CVV(Güvenlik Kodu)"
-              style="text-align: right"
-            />
-          </div>
-        </tr>
-        <tr>
-          <div class="form-check" *ngIf="creditCardId == 0">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              id="saveCard"
-              [(ngModel)]="saveCard"
-            />
-            <label class="form-check-label" for="saveCard">Kartı kaydet</label>
-          </div>
-        </tr>
-      </td>
-    </table>
-  </ul>
-  <div class="card-footer">
-    <button
-      (click)="pay()"
-      class="btn btn-danger"
-      style="width: 250px; float: right"
-      [disabled]="ifPaymentFilled()"
-    >
-      Ödeme Yap
-    </button>
-  </div>
-</div>
-
-<div
-  *ngIf="mainCar && rental.rentalId != 1"
-  id="carouselExampleControls"
-  class="carousel slide"
-  data-bs-ride="carousel"
->
-  <div class="carousel-inner">
-    <div
-      *ngFor="let carImage of carImages"
-      [class]="getCarImageClass(carImage)"
-    >
-      <img
-        width="1000px"
-        height="540px"
-        src="https://localhost:44321/{{ carImage.imagePath }}"
-      />
+      </div>
     </div>
   </div>
-  <button
-    class="carousel-control-prev"
-    type="button"
-    data-bs-slide="prev"
-  >
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button
-    class="carousel-control-next"
-    type="button"
-    data-bs-target="#carouselExampleControls"
-    data-bs-slide="next"
-  >
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
 </div>
+
+

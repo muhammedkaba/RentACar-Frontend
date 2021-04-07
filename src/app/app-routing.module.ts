@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { BrandEditComponent } from './components/brand-edit/brand-edit.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
+import { CarDetailComponent } from './components/car-detail/car-detail.component';
 import { CarEditComponent } from './components/car-edit/car-edit.component';
 import { CarComponent } from './components/car/car.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
@@ -19,7 +20,7 @@ const routes: Routes = [
   {path:"cars", component:CarComponent},
   {path:"cars/color/:colorId", component:CarComponent},
   {path:"cars/brand/:brandId", component:CarComponent},
-  {path:"cars/details/:carId", component:CarComponent},
+  {path:"cars/details/:carId", component:CarDetailComponent},
   {path:"brands/add", component:BrandAddComponent, canActivate:[LoginGuard]},
   {path:"colors/add", component:ColorAddComponent, canActivate:[LoginGuard]},
   {path:"cars/add", component:CarAddComponent, canActivate:[LoginGuard]},
