@@ -27,8 +27,8 @@
         <li class="list-group-item">Günlük Fiyat : {{ car.dailyPrice | currency: "₺ " }} </li>
         <li class="list-group-item">Min Findeks : {{ car.minFindeks}} </li>
       </ul>
-      <div class="card-body">
-        <button *ngIf="!mainCar" routerLink="/cars/edit/{{ car.carId }}" type="button" class="btn"
+      <div *ngIf="!mainCar" class="card-body">
+        <button  routerLink="/cars/edit/{{ car.carId }}" type="button" class="btn"
           style="width: 100%;text-align: center;background-color: blueviolet;color: whitesmoke;">
           Düzenle
         </button>
