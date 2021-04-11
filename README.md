@@ -4,10 +4,10 @@
 # Resimler
 
 ![RentaCar-Frontend](https://i.imgur.com/gX26vRq.png)
-![RentaCar-Frontend](https://i.imgur.com/yRHT1zY.png)
-![RentaCar-Frontend](https://i.imgur.com/GWY9y8q.png)
-![RentaCar-Frontend](https://i.imgur.com/PM0hx7m.png)
-![RentaCar-Frontend](https://i.imgur.com/DWR11em.png)
+![RentaCar-Frontend](https://i.imgur.com/EhRFWxj.png)
+![RentaCar-Frontend](https://i.imgur.com/fhX5noN.png)
+![RentaCar-Frontend](https://i.imgur.com/HktSOFH.png)
+![RentaCar-Frontend](https://i.imgur.com/HF2BVTP.png)
 ![RentaCar-Frontend](https://i.imgur.com/nY4rqer.png)
 ![RentaCar-Frontend](https://i.imgur.com/43FemHi.png)
 ![RentaCar-Frontend](https://i.imgur.com/BNjCvEp.png)
